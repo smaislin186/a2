@@ -1,5 +1,4 @@
-<?php require ('tools.php');
-?>
+<?php require ('tools.php');?>
 <!doctype html>
 <html>
 <head>

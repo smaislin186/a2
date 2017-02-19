@@ -30,27 +30,48 @@ $letterValue = [
     'Z' => 10
 ];
 
-dump($_POST);
+//dump($_POST);
+//dump($_POST['bonusLetterGroup']);
+//dump(isset($_POST['bonusLetterGroup']));
+if(!isset($_POST['bonusLetterGroup']) OR !isset($_POST['bonusWord']) ){
+    return $message = "Don't for get to fill out all fields";
+}
+else{
+    // save input from form. Note:bonusLetterGroup Has to be 2 dimensional array so that duplicate letters are assigned their own radio button value
+    $bonusLetter = $_POST['bonusLetterGroup'];
+    $bonusWord = $_POST['bonusWord'];
 
-dump($wordArray);
-dump($word);
-//dump($bonusLetterGroup);
-
-//if(isset($_POST['submit'])){
-    // $wordUp = strtoupper($word);
-    // $wordArray = str_split($wordUp, 1);
-    
+    //initialize score
     $score = 0;
 
-        foreach($wordArray as $key => $letter){
-            $bonusLetterGroup = isset($_POST['bonusLetterGroup'][$key]);
-            $score += $letterValue[$letter];
+    foreach($bonusLetter as $inner_array){
+        //dump($inner_array);
+        foreach($inner_array as $letter => $value ){
+            //dump($key);
+            //dump($bonusValue);
+            if($value == "D"){
+                $score += ($letterValue[$letter] * 2);
             }
-            // add bonus to score
-            // if($bonus){
-            //     $score += 50;
-            // }
-    //}
+            elseif($value == "T"){
+                $score += ($letterValue[$letter] * 3);
+            }
+            else{
+                $score += $letterValue[$letter];
+            }
+        }
+    }
+
+    if($bonusWord == "double"){
+        $score *= 2;
+    }
+    elseif($bonusWord == "triple"){
+        $score *= 3;
+    }
+
+    if(isset($_POST['bingo'])){
+        $score += 50;
+    }
+}
 
 
 

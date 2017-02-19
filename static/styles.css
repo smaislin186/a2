@@ -24,3 +24,9 @@ input, textarea, select {
 input[type='checkbox'], input[type='radio'] {
     display:inline;
 }
+
+.radio-inline{
+  color:black;
+  font-size:15px;
+  position:relative;
+}

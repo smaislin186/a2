@@ -7,9 +7,12 @@ require('scrabble.php');
 <body>
     <h2>Scrabble Word Calculator</h2>
 
-    <div> Calculated Word Score: <?php $score ?> </div>
-    
-    <div> Calculated Word Score: <?php $bonusLetterGroup ?> </div>
-
+    <div class='score'>
+        <?php if($score != NULL){ ?>
+            Score: <?php echo $score; ?>
+        <?php } else { ?> 
+            <?php echo $message; ?>
+        <?php } ?>
+    </div>
 </body>
 </html>
