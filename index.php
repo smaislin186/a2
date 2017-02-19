@@ -1,5 +1,6 @@
 <?php 
 require('layout.php');
+require('definition.php');
  ?>
 <!doctype html>
 <html>
@@ -9,7 +10,7 @@ require('layout.php');
         <label for='word'>Enter Word:</label>
         <input type='text' name='word' id ='word' value='<?=sanitize($word)?>'>
         <input type='submit' value='Lookup' class='btn-primary btn small'>
-        <input type='submit' value='Score Word' class='btn-primary btn small' formaction='calculate.php'>
+        <input type='submit' value='Score Word' class='btn-primary btn small' formaction='calculateView.php'>
     </form>
     <div class='definition'>
         <?php if($definition): ?>

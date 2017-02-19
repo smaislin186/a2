@@ -1,4 +1,5 @@
 <?php 
+require('definition.php');
 
 $letterValue = [
     'A' => 1,
@@ -29,32 +30,30 @@ $letterValue = [
     'Z' => 10
 ];
 
-$word ='';
+dump($_POST);
 
-if(isset($_GET['word'])){
-    $word = (isset($_GET['word'])) ? $_GET['word']: "";
-    $wordUp = strtoupper($word);
-    $wordArray = str_split($wordUp, 1);
-    $valid = $dictionary[$wordUp];
-}
+dump($wordArray);
+dump($word);
+//dump($bonusLetterGroup);
 
-if(isset($_POST['submit'])){
-    foreach($wordArray as $key => $letter){
+//if(isset($_POST['submit'])){
+    // $wordUp = strtoupper($word);
+    // $wordArray = str_split($wordUp, 1);
+    
+    $score = 0;
 
-        $radio[] = isset($_POST['radio']);
-        dump($radio);
-        $score = 0;
-        foreach($wordArray as $key => $userLetter){               
-            $score += $letterValue[$userLetter];
-        }
-        // add bonus to score
-        if($bonus){
-            $score += 50;
-        }
-            return $wordArray;
-        }
-    }
-        
+        foreach($wordArray as $key => $letter){
+            $bonusLetterGroup = isset($_POST['bonusLetterGroup'][$key]);
+            $score += $letterValue[$letter];
+            }
+            // add bonus to score
+            // if($bonus){
+            //     $score += 50;
+            // }
+    //}
+
+
+
 
 
 
