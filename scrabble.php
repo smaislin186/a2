@@ -1,5 +1,6 @@
 <?php 
-require('definition.php');
+
+$formP = new Form($_POST);
 
 $letterValue = [
     'A' => 1,
@@ -30,9 +31,28 @@ $letterValue = [
     'Z' => 10
 ];
 
+//$form = new DWA\Form($_POST);
+
+// if($form->isSubmitted()) {
+
+//     $errors = $form->validate(
+//         [
+//             'radio' => 'required|radio',
+//             'bonusWord' => 'alphaNumeric',
+//             'year' => 'numeric',
+//             'age' => 'min:16',
+//             'score' => 'max:5',
+//             'rank' => 'numeric|min:0|max:5',
+//         ]
+//     );
+// }
 //dump($_POST);
 //dump($_POST['bonusLetterGroup']);
 //dump(isset($_POST['bonusLetterGroup']));
+
+$bonusLetter = $formP->get('bonusLetterGroup', '');
+$bonusWord = $formP->get('bonusWord', '');
+
 if(!$_POST){
     $bingo = '';
     $score = '';
@@ -40,13 +60,12 @@ if(!$_POST){
     $bonusValue = '';
     $bonusLetter = '';  
 }
-elseif(!isset($_POST['bonusLetterGroup']) OR !isset($_POST['bonusWord'])){
+//!isset($_POST['bonusLetterGroup'])  OR !isset($_POST['bonusWord'])
+elseif($bonusLetter == '' OR $bonusWord == ''){
     return $message = "Don't for get to fill out all fields";
 }
 else{
     // save input from form. Note:bonusLetterGroup Has to be 2 dimensional array so that duplicate letters are assigned their own radio button value
-    $bonusLetter = $_POST['bonusLetterGroup'];
-    $bonusWord = $_POST['bonusWord'];
 
     //initialize score
     $score = 0;
@@ -75,7 +94,7 @@ else{
         $score *= 3;
     }
 
-    if(isset($_POST['bingo'])){
+    if($formP->isChosen('bingo')){
         $score += 50;
     }
 }

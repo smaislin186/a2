@@ -1,13 +1,12 @@
 <?php 
 require('layout.php');
-require('definition.php');
-require('scrabble.php');
 ?>
 <html>
 <body>
     <h2>Scrabble Word Calculator</h2>
 
     <form method ='POST' action='resultView.php'>
+        <?php echo $word ?>
         <?php echo $definition ?>
         <div class ='LetterBonus'>
            <fieldset class='radios'>  

@@ -1,6 +1,5 @@
 <?php 
 require('layout.php');
-require('scrabble.php');
  ?>
 <html>
 <body>
