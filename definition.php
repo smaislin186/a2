@@ -4,10 +4,6 @@
 $form = new Form($_GET);
 //$dictionary = new Dictionary('static/dictionary.json');
 
-// if($form->isSubmitted()) {
-
-
-
 if($form->isSubmitted()){
 
     // Validate 
@@ -17,7 +13,7 @@ if($form->isSubmitted()){
         ]
     );    
     //dump($errors);
-    // https://github.com/adambom/dictionary.git
+
     $dictJson = file_get_contents('static/dictionary.json');
     $dictionary = json_decode($dictJson, true);
 
