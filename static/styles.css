@@ -10,11 +10,10 @@ footer {
     margin-top:10px;
 }
 
-
-label, legend {
+legend {
     display:block;
     margin-top:20px;
-    margin-bottom:0;
+    margin-bottom:5px;
 }
 
 input, textarea, select {
@@ -25,8 +24,15 @@ input[type='checkbox'], input[type='radio'] {
     display:inline;
 }
 
-.radio-inline{
-  color:black;
-  font-size:15px;
-  position:relative;
+.letter{
+    color:darkred;
+    /*display: inline;*/
+    /*margin: 15px;*/
+    padding-right: 5px;
+    text-align: center;
+    float:left;
 }
+
+/*fieldset {
+    text-align: center;
+}*/

@@ -33,7 +33,14 @@ $letterValue = [
 //dump($_POST);
 //dump($_POST['bonusLetterGroup']);
 //dump(isset($_POST['bonusLetterGroup']));
-if(!isset($_POST['bonusLetterGroup']) OR !isset($_POST['bonusWord']) ){
+if(!$_POST){
+    $bingo = '';
+    $score = '';
+    $bonusWord = '';
+    $bonusValue = '';
+    $bonusLetter = '';  
+}
+elseif(!isset($_POST['bonusLetterGroup']) OR !isset($_POST['bonusWord'])){
     return $message = "Don't for get to fill out all fields";
 }
 else{

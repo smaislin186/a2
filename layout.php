@@ -9,4 +9,7 @@
 
 	<meta charset='utf-8'>
 </head>
+<body>
+        <img src="/images/scrabble_tiles.jpeg" alt="scrabble tiles" class="photo">
+</body>
 </html>
