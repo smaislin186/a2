@@ -3,7 +3,6 @@ require('layout.php');
 require('definition.php');
 require('scrabble.php');
 ?>
-<!doctype html>
 <html>
 <body>
     <h2>Scrabble Word Calculator</h2>
