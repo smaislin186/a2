@@ -61,7 +61,7 @@ class Form {
     * Second optional parameter lets you set a default value if value does not exist
     *
     * Example usage:
-    *   <input type='text' name='email' value='<?=$form->prefill($email, "example@gmail.com")?>'>
+    *   <input type='text' name='email' value='<?=$form->prefill('email', "example@gmail.com")?>'>
 	*/
     public function prefill($field, $default = '', $sanitize = true) {
 
@@ -83,9 +83,22 @@ class Form {
 	* Returns True if *either* GET or POST have been submitted
 	*/
     public function isSubmitted() {
+        //return $_SERVER['REQUEST_METHOD'] == !empty($_GET) || !empty($_POST);
+        
         return $_SERVER['REQUEST_METHOD'] == 'POST' || !empty($_GET);
     }
 
+    public function isSubmittedG() {
+        return $_SERVER['REQUEST_METHOD'] == !empty($_GET) || !empty($_POST);
+        
+        //return $_SERVER['REQUEST_METHOD'] == 'POST' || !empty($_GET);
+    }
+
+    public function isSubmittedPost() {
+        return $_SERVER['REQUEST_METHOD'] == 'POST';
+        
+        // return $_SERVER['REQUEST_METHOD'] == 'POST' || !empty($_GET);
+    }
 
     /**
     * Strips HTML characters; works with arrays or scalar values

@@ -11,12 +11,13 @@ require('definition.php');
         <h2>Scrabble Word Finder & Calculator</h2>
         
         <form method ='GET' action='/'>
-            <label for='word'>Enter Word:</label>
+            <label for='word'>Enter a Word:</label>
             <input type='text' name='word' id ='word' required 
-                value='<?php if($form->isSubmitted()) echo $_GET['word'] ?>'>
+                value='<?=$form->prefill('word')?>'>
             <input type='submit' value='Lookup' class='btn-primary btn small'>
         </form>
 
+<?php if($form->isSubmitted() ):?>
         <?php if($errors):?>
         <div class='alert alert-danger'>
             <?php foreach($errors as $error): ?>
@@ -29,8 +30,9 @@ require('definition.php');
                     <div class='alert alert-info'><?=sanitize($definition) ?></div>
                 <?php endif; ?>
             </div>
-            
-            <?php if($form->isSubmitted()):?>
+<?php endif; ?>
+
+            <?php if($form->isSubmitted() && !$errors ):?>
                 <form method ='POST' action='/'>
                         <?php echo sanitize($word) ?>
                         <div class ='LetterBonus'>
@@ -49,9 +51,9 @@ require('definition.php');
                             <legend>Word Bonus</legend>
                             <select name='bonusWord' id='bonusWord'>
                                 <option value='choose'>Choose one...</option>
-                                <option value='none' <?php if($bonusWord == 'none') echo 'SELECTED'?>>None</option>
-                                <option value='double' <?php if($bonusWord == 'double') echo 'SELECTED'?>>Double Word</option>
-                                <option value='triple' <?php if($bonusWord == 'triple') echo 'SELECTED'?>>Triple Word</option>
+                                <option value='none' >None</option>
+                                <option value='double' >Double Word</option>
+                                <option value='triple' >Triple Word</option>
                             </select>
                         </div>
                         <div class = "BingoBonus">
@@ -67,7 +69,7 @@ require('definition.php');
             <?php if($formP->isSubmitted()):?>
                 <div class='score'>
                     <?php if($score != NULL): ?>
-                        <div class='alert alert-info'>Calculated Score = <?=sanitize($score) ?>
+                        <div class='alert alert-success'>Calculated Score = <?=sanitize($score) ?>
                     <?php endif; ?>
                 </div>
             <?php endif; ?>

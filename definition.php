@@ -8,7 +8,7 @@ $form = new Form($_GET);
 $formP = new Form($_POST);
 //$dictionary = new Dictionary('static/dictionary.json');
 $errors = false;
-$word;
+global $word;
 
 if($form->isSubmitted()){
 
@@ -21,21 +21,30 @@ if($form->isSubmitted()){
 
     $dictJson = file_get_contents('static/dictionary.json');
     $dictionary = json_decode($dictJson, true);
+    if(!$errors)
+    {
+        if($form->get('word','') != ''){
+            $word = $form->get('word','');
+            $wordUp = strtoupper($word); 
+            $definition = $dictionary[$wordUp];
+            $wordArray = str_split($wordUp, 1);
+            // used to check validity of Bingo Bonus (must have at least 7 letters)
+            $letterCount = count($wordArray);    
+        }
+        else{
+            $word = $form->get('word',''); 
+            $definition;
+            $wordArray;
+            $letterCount = 0;
+        }
+    }
+    //initialize variables so can display default values on page
+    $score = 0;
+    $bingo = false;
 
-    $word = $form->get('word');
-    dump($word);
-     
-    $wordUp = strtoupper($word); 
-    //$definition = $dictionary->lookup($word);
-    $definition = $dictionary[$wordUp];
-    $wordArray = str_split($wordUp, 1);
-
-    // used to check validity of Bingo Bonus (must have at least 7 letters)
-    $letterCount = count($wordArray);
 }
-    //header('Location: /');
-if($formP->isSubmitted()){
-    //header("Location: ". $_SERVER['REQUEST_URI']. 'word');
+
+if($formP->isSubmittedPost()){
     $letterValue = [
         'A' => 1,
         'B' => 3,
@@ -64,26 +73,21 @@ if($formP->isSubmitted()){
         'Y' => 4,
         'Z' => 10
 ];
-    //$get_word = "?word=success"
-    //initialize score
-    $score = 0;
     $bonusLetter = $formP->get('bonusLetterGroup');
-    dump($bonusLetter);
     $bonusWord = $formP->get('bonusWord', '');
-    dump($bonusWord);
     foreach($bonusLetter as $inner_array){
-        //dump($inner_array);
         foreach($inner_array as $letter => $value ){
-            //dump($key);
-            //dump($bonusValue);
-            if($value == "D"){
+            if($value == "N"){
+                $score += $letterValue[$letter];
+            }
+            elseif($value == "D"){
                 $score += ($letterValue[$letter] * 2);
             }
-            elseif($value == "T"){
+            elseif($value == "D"){
                 $score += ($letterValue[$letter] * 3);
             }
             else{
-                $score += $letterValue[$letter];
+                $errors = "Error: invalid letter bonus supplied";
             }
         }
     }
@@ -98,4 +102,5 @@ if($formP->isSubmitted()){
     if($formP->isChosen('bingo')){
         $score += 50;
     }
+dump($score);
 }
