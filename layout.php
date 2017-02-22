@@ -1,9 +1,5 @@
 <?php 
 require('tools.php');
-require('Form.php');
-require('Dictionary.php');
-require('definition.php');
-require('scrabble.php');
 ?>
 <!doctype html>
 <html>
