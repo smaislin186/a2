@@ -2,12 +2,13 @@
 require('Form.php');
 
 require('Dictionary.php');
-//use DWA\Form;
+use DWA\Form;
 
 $form = new Form($_GET);
 $formP = new Form($_POST);
 //$dictionary = new Dictionary('static/dictionary.json');
 $errors = false;
+$word;
 
 if($form->isSubmitted()){
 
@@ -17,21 +18,14 @@ if($form->isSubmitted()){
             'word' => 'required|alpha'
         ]
     );    
-    //dump($errors);
 
     $dictJson = file_get_contents('static/dictionary.json');
     $dictionary = json_decode($dictJson, true);
 
-    $word = $form->get('word', '');
-    //dump($word);
-    //(isset($_GET['word'])) ? $_GET['word']: "";
-    
-    // validation to check for non-alphabetic characters
-    if(!ctype_alpha($word)){
-        $definition = 'Not a word';
-        return $definition;
-    }  
-    $wordUp = strtoupper($word);
+    $word = $form->get('word');
+    dump($word);
+     
+    $wordUp = strtoupper($word); 
     //$definition = $dictionary->lookup($word);
     $definition = $dictionary[$wordUp];
     $wordArray = str_split($wordUp, 1);
@@ -73,8 +67,10 @@ if($formP->isSubmitted()){
     //$get_word = "?word=success"
     //initialize score
     $score = 0;
-    $bonusLetter = $formP->get('bonusLetterGroup', '');
+    $bonusLetter = $formP->get('bonusLetterGroup');
+    dump($bonusLetter);
     $bonusWord = $formP->get('bonusWord', '');
+    dump($bonusWord);
     foreach($bonusLetter as $inner_array){
         //dump($inner_array);
         foreach($inner_array as $letter => $value ){

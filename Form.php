@@ -1,6 +1,6 @@
 <?php
 
-//namespace DWA;
+namespace DWA;
 
 # For examples, see:
 # https://github.com/susanBuck/dwa15-php-practice/blob/master/formDemo.php

@@ -1,6 +1,7 @@
 <?php 
 require('layout.php');
 require('definition.php');
+
 //require('scrabble.php');
  ?>
 <!doctype html>
@@ -12,11 +13,7 @@ require('definition.php');
         <form method ='GET' action='/'>
             <label for='word'>Enter Word:</label>
             <input type='text' name='word' id ='word' required 
-                value='<?php if($form->get('word')): ?>
-                            <?php echo $_GET['word'] ?>
-                       <?php elseif($formP->get('word')): ?>     
-                            <?php echo $_GET['word'] ?>
-                       <?php endif;?>'>
+                value='<?php if($form->isSubmitted()) echo $_GET['word'] ?>'>
             <input type='submit' value='Lookup' class='btn-primary btn small'>
         </form>
 
@@ -34,9 +31,8 @@ require('definition.php');
             </div>
             
             <?php if($form->isSubmitted()):?>
-                <form method ='POST' action='/?word'>
-                        <?php echo $word ?>
-                        <!--<?php echo $definition ?>-->
+                <form method ='POST' action='/'>
+                        <?php echo sanitize($word) ?>
                         <div class ='LetterBonus'>
                         <fieldset class='radios'>  
                             <legend>Letter Bonus</legend>
@@ -67,11 +63,13 @@ require('definition.php');
                             <input type='submit' value='Score' class='btn-primary btn small'>
                         </div>
                     </form>
-                    <div class='score'>
-                        <?php if($score != NULL): ?>
-                             <div class='alert alert-info'>Calculated Score = <?=sanitize($score) ?>
-                        <?php endif; ?>
-                    </div>
+            <?php endif; ?>
+            <?php if($formP->isSubmitted()):?>
+                <div class='score'>
+                    <?php if($score != NULL): ?>
+                        <div class='alert alert-info'>Calculated Score = <?=sanitize($score) ?>
+                    <?php endif; ?>
+                </div>
             <?php endif; ?>
         <?php endif; ?>
     </div>
