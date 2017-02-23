@@ -89,7 +89,7 @@ class Form {
     }
 
     public function isSubmittedG() {
-        return $_SERVER['REQUEST_METHOD'] == !empty($_GET) || !empty($_POST);
+        return $_SERVER['REQUEST_METHOD'] == !empty($_GET) || empty($_POST);
         
         //return $_SERVER['REQUEST_METHOD'] == 'POST' || !empty($_GET);
     }
