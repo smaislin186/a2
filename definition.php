@@ -21,7 +21,7 @@ $_SESSION['letterCount']='';
 $_SESSION['bingo']='';
 $form = new Form($_GET);
 $formP = new Form($_POST);
-//$dictionary = new Dictionary('static/dictionary.json');
+
 //initialize variables so can display default values on page
 $errors = false;
 $score = 0;
