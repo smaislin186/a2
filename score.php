@@ -55,7 +55,7 @@ if($form->isSubmittedGet()){
                 $wordArray = str_split($wordUp, 1);
                 $_SESSION['wordArray']=$wordArray;
                 $_SESSION['word']=$wordUp;
-                dump($_SESSION['word']);
+                //dump($_SESSION['word']);
                 // used to check validity of Bingo Bonus (must have at least 7 letters)
                 $letterCount = count($wordArray);    
                 $_SESSION['letterCount']=$letterCount;
@@ -100,11 +100,11 @@ if($formP->isSubmittedPost()){
 
     $bonusLetter = $formP->get('bonusLetterGroup','');
     $_SESSION['bonusLetter'] = $bonusLetter;
-    dump($bonusLetter);
-    dump($_SESSION['wordArray']);
+    //dump($bonusLetter);
+    //dump($_SESSION['wordArray']);
     $bonusWord = $formP->get('bonusWord', '');
     $_SESSION['bonusWord'] = $bonusWord;
-dump($_SESSION['word']);
+//dump($_SESSION['word']);
     // calculate individual letter tile scores
     foreach($bonusLetter as $inner_array){
         foreach($inner_array as $letter => $value ){
