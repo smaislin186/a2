@@ -1,8 +1,6 @@
 <?php 
 require('layout.php');
 require('definition.php');
-
-//require('scrabble.php');
  ?>
 <!doctype html>
 <html>
@@ -37,7 +35,9 @@ require('definition.php');
                         <div class ='letter-group'>
                             <div class='letter'><?=$letter?></div>
                             <label class="radio-inline"><input type='radio' name=bonusLetterGroup[<?php print $key; ?>][<?php print $letter; ?>] 
-                                value='N' <?php if($bonusLetter=='N') echo 'CHECKED'?>>None</label>
+                                value='N' <?php if($formP->get('bonusLetter[$key]')=='N'): ?> <?php echo 'CHECKED'?>
+                                        <?php else:?><?php echo 'CHECKED'?>
+                                        <?php endif; ?>> None</label>
                             <label class="radio-inline"><input type='radio' name=bonusLetterGroup[<?php print $key; ?>][<?php print $letter; ?>] 
                                 value='D' <?php if($bonusLetter=='D') echo 'CHECKED'?>>Double</label>
                             <label class="radio-inline"><input type='radio' name=bonusLetterGroup[<?php print $key; ?>][<?php print $letter; ?>] 
@@ -48,7 +48,6 @@ require('definition.php');
                 <div class='WordBonus'>
                     <legend>Word Bonus</legend>
                     <select name='bonusWord' id='bonusWord'>
-                        <option value='choose'>Choose one...</option>
                         <option value='none' <?php if($formP->get('bonusWord')=='none') echo 'SELECTED'?>>None</option>
                         <option value='double' <?php if($formP->get('bonusWord')=='double') echo 'SELECTED'?>>Double Word</option>
                         <option value='triple' <?php if($formP->get('bonusWord')=='triple') echo 'SELECTED'?>>Triple Word</option>

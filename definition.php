@@ -1,9 +1,11 @@
 <?php
 require('Form.php');
-
-require('Dictionary.php');
 use DWA\Form;
-session_start();
+
+//initialize the session
+if (!isset($_SESSION)) {
+    session_start();
+}
 // if (ini_get('register_globals'))
 // {
 //     foreach ($_SESSION as $key=>$value)
@@ -26,50 +28,44 @@ $score = 0;
 $bingo = false;
 $bonusLetter='';
 
-if($form->isSubmittedG()){
-
-    // Validate 
-    $errors = $form->validate(
-        [
-            'word' => 'required|alpha'
-        ]
-    );    
-
-    //load dictionary - if time, refactor to own Class
-    $dictJson = file_get_contents('static/dictionary.json');
-    $dictionary = json_decode($dictJson, true);
+if($form->isSubmittedGet()){
     
-    if(!$errors || $_SESSION['word'] == '')
+    if($form->isSubmitted())
     {
-        $word = $form->get('word','');
+        // Validate if have non-numeric required word
+        $errors = $form->validate(
+            [
+                'word' => 'required|alpha'
+            ]
+        );
 
+        // load dictionary - if time, refactor to own Class
+        $dictJson = file_get_contents('static/dictionary.json');
+        $dictionary = json_decode($dictJson, true);
+        
+        // Validate if input word exists in dictionary
+        $word = $form->get('word','');
         if($word != ''){
-            $wordUp = strtoupper($word); 
-            $_SESSION['word']=$wordUp;
+            $wordUp = strtoupper($word);
             
+            // search dictionary
             if($dictionary[$wordUp] != NULL){
                 $definition = $dictionary[$wordUp];
                 // dump($definition);
                 $wordArray = str_split($wordUp, 1);
-                
                 $_SESSION['wordArray']=$wordArray;
+                $_SESSION['word']=$wordUp;
+                dump($_SESSION['word']);
                 // used to check validity of Bingo Bonus (must have at least 7 letters)
                 $letterCount = count($wordArray);    
                 $_SESSION['letterCount']=$letterCount;
             }
             else{
-                $errors = ['Word does not exist'];
+                array_push($errors, 'Word not found');
+                return $errors;
             }
         }
-        else{
-            $word = $form->get('word',''); 
-            $definition;
-            $wordArray;
-            $letterCount = 0;
-        }
     }
-
-
 }
 
 if($formP->isSubmittedPost()){
@@ -104,10 +100,12 @@ if($formP->isSubmittedPost()){
 
     $bonusLetter = $formP->get('bonusLetterGroup','');
     $_SESSION['bonusLetter'] = $bonusLetter;
-    
+    dump($bonusLetter);
+    dump($_SESSION['wordArray']);
     $bonusWord = $formP->get('bonusWord', '');
     $_SESSION['bonusWord'] = $bonusWord;
-
+dump($_SESSION['word']);
+    // calculate individual letter tile scores
     foreach($bonusLetter as $inner_array){
         foreach($inner_array as $letter => $value ){
             if($value == "N"){
@@ -125,6 +123,7 @@ if($formP->isSubmittedPost()){
         }
     }
 
+    // calculate bonus word tiles
     if($bonusWord == "double"){
         $score *= 2;
     }
@@ -132,6 +131,7 @@ if($formP->isSubmittedPost()){
         $score *= 3;
     }
 
+    // calculate bonus for using all 7 tiles
     if($formP->isChosen('bingo')){
         $score += 50;
     }

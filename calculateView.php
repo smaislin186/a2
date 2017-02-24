@@ -5,7 +5,7 @@ require('layout.php');
 <body>
     <h2>Scrabble Word Calculator</h2>
 
-    <form method ='POST' action='resultView.php'>
+    <form method ='POST' action='/'>
         <?php echo $word ?>
         <?php echo $definition ?>
         <div class ='LetterBonus'>

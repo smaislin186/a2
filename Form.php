@@ -87,17 +87,20 @@ class Form {
         
         return $_SERVER['REQUEST_METHOD'] == 'POST' || !empty($_GET);
     }
-
-    public function isSubmittedG() {
-        return $_SERVER['REQUEST_METHOD'] == !empty($_GET) || empty($_POST);
-        
+    
+    /**
+	* Returns True if GET has been submitted
+	*/
+    public function isSubmittedGet() {
+        return $_SERVER['REQUEST_METHOD'] != 'POST';
+        //return $_SERVER['REQUEST_METHOD'] == !empty($_GET) || empty($_POST);
         //return $_SERVER['REQUEST_METHOD'] == 'POST' || !empty($_GET);
     }
-
+    /**
+	* Returns True if POST has been submitted
+	*/
     public function isSubmittedPost() {
         return $_SERVER['REQUEST_METHOD'] == 'POST';
-        
-        // return $_SERVER['REQUEST_METHOD'] == 'POST' || !empty($_GET);
     }
 
     /**
