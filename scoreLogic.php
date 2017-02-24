@@ -9,9 +9,10 @@ $formP = new Form($_POST);
 //initialize variable so can display on page load
 $errors = false;
 
+// display logic to select letter and word options
 if($form->isSubmitted()){
 
-    // Validate if have non-numeric required word
+    // Validate if have non-numeric, required word
     $errors = $form->validate(
         [
             'word' => 'required|alpha'
@@ -22,8 +23,10 @@ if($form->isSubmitted()){
     $dictJson = file_get_contents('static/dictionary.json');
     $dictionary = json_decode($dictJson, true);
         
-    // Validate if input word exists in dictionary
+    // store input word
     $word = $form->get('word','');
+
+    // Validate if word exists in dictionary
     if($word != ''){
         $wordUp = strtoupper($word);
         
@@ -46,6 +49,7 @@ if($form->isSubmitted()){
     }
 }
 
+// calculate logic after user has selected bonus options
 if($formP->isSubmittedPost()){
     $letterValue = [
         'A' => 1,
@@ -110,5 +114,4 @@ if($formP->isSubmittedPost()){
     if($formP->isChosen('bingo')){
         $score += 50;
     }
-//dump($score);
 }

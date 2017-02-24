@@ -6,7 +6,7 @@ require('scoreLogic.php');
         <h2>Scrabble Word Finder & Calculator</h2>
         
         <form method ='GET' action='/'>
-            <label for='word'>Enter a Word</label>
+            <label for='word'>Enter a Word (required)</label>
             <input type='text' name='word' id ='word' required value='<?=$form->prefill('word')?>'>
             <input type='submit' value='Lookup' class='btn-primary btn small'>
         </form>
@@ -28,12 +28,23 @@ require('scoreLogic.php');
                     <?php foreach($wordArray as $key => $letter): ?>
                         <div class ='letter-group'>
                             <div class='letter'><?=$letter?></div>
-                            <label class="radio-inline"><input type='radio' name=bonusLetterGroup[<?php print $key; ?>][<?php print $letter; ?>] 
-                                value='N' checked='CHECKED'> None</label>
-                            <label class="radio-inline"><input type='radio' name=bonusLetterGroup[<?php print $key; ?>][<?php print $letter; ?>] 
-                                value='D'>Double</label>
-                            <label class="radio-inline"><input type='radio' name=bonusLetterGroup[<?php print $key; ?>][<?php print $letter; ?>] 
-                                value='T'>Triple</label>
+                            <div class='radioGroup'>
+                                <div class="radio-inline">
+                                    <input type='radio' id='radioN' name=bonusLetterGroup[<?php print $key; ?>][<?php print $letter; ?>] 
+                                        value='N' checked='CHECKED'>
+                                    <label for='radioN'>None</label>
+                                </div>
+                                <div class="radio-inline">
+                                    <input type='radio' id='radioD' name=bonusLetterGroup[<?php print $key; ?>][<?php print $letter; ?>] 
+                                        value='D'>
+                                    <label for='radioD'>Double</label>
+                                </div>
+                                <div class="radio-inline">
+                                    <input type='radio' id='radioT' name=bonusLetterGroup[<?php print $key; ?>][<?php print $letter; ?>] 
+                                        value='T'>
+                                    <label for='radioT'>None</label>
+                                </div>
+                            </div>    
                     <?php endforeach; ?>           
                     </fieldset>
                 </div>

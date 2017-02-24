@@ -26,13 +26,7 @@ input[type='checkbox'], input[type='radio'] {
 
 .letter{
     color:darkred;
-    /*display: inline;*/
-    /*margin: 15px;*/
-    padding-right: 5px;
     text-align: center;
     float:left;
-}
-
-.letter-group{
-    color:blue;
+    margin-right: 10px;
 }
