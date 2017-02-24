@@ -1,44 +1,39 @@
 <?php 
 require('layout.php');
-require('score.php');
+require('scoreLogic.php');
  ?>
     <div class="container-fluid">   
         <h2>Scrabble Word Finder & Calculator</h2>
         
         <form method ='GET' action='/'>
-            <label for='word'>Enter a Word:</label>
-            <input type='text' name='word' id ='word' required 
-                value='<?=$_SESSION['word']?>'>
+            <label for='word'>Enter a Word</label>
+            <input type='text' name='word' id ='word' required value='<?=$form->prefill('word')?>'>
             <input type='submit' value='Lookup' class='btn-primary btn small'>
         </form>
+
         <?php if($errors):?>
         <div class='alert alert-danger'>
             <?php foreach($errors as $error): ?>
                 <?=$error?><br>
             <?php endforeach; ?>
         </div>
-        <?php elseif($form->isSubmitted() ):?>
+        <?php elseif($form->isSubmitted()):?>
             <div class='definition'>
-                <?php if($form->get('word')): ?>
-                    <div class='alert alert-info'><?=sanitize($definition) ?></div>
-                <?php endif; ?>
+                <div class='alert alert-info'>Definition: <?=sanitize($definition) ?></div>
             </div>
-            <form method ='POST' action='/'>
-                <h3>Select bonus squares for <?php echo sanitize($_SESSION['word']) ?></h3>
+            <form method ='POST' action='score.php'>
                 <div class ='LetterBonus'>
                 <fieldset class='radios'>  
                     <legend>Letter Bonus</legend>
-                    <?php foreach($_SESSION['wordArray'] as $key => $letter): ?>
+                    <?php foreach($wordArray as $key => $letter): ?>
                         <div class ='letter-group'>
                             <div class='letter'><?=$letter?></div>
                             <label class="radio-inline"><input type='radio' name=bonusLetterGroup[<?php print $key; ?>][<?php print $letter; ?>] 
-                                value='N' <?php if($formP->get('bonusLetter[$key]')=='N'): ?> <?php echo 'CHECKED'?>
-                                        <?php else:?><?php echo 'CHECKED'?>
-                                        <?php endif; ?>> None</label>
+                                value='N' checked='CHECKED'> None</label>
                             <label class="radio-inline"><input type='radio' name=bonusLetterGroup[<?php print $key; ?>][<?php print $letter; ?>] 
-                                value='D' <?php if($bonusLetter=='D') echo 'CHECKED'?>>Double</label>
+                                value='D'>Double</label>
                             <label class="radio-inline"><input type='radio' name=bonusLetterGroup[<?php print $key; ?>][<?php print $letter; ?>] 
-                                value='T' <?php if($bonusLetter=='T') echo 'CHECKED'?>>Triple</label>
+                                value='T'>Triple</label>
                     <?php endforeach; ?>           
                     </fieldset>
                 </div>
@@ -52,7 +47,7 @@ require('score.php');
                 </div>
                 <div class = "BingoBonus">
                     <legend>Bingo Bonus</legend>
-                    <input type='checkbox' name='bingo' id ='bingo' <?php if($_SESSION['letterCount'] < 7) echo 'disabled'?> 
+                    <input type='checkbox' name='bingo' id ='bingo' <?php if(!$bingoEligible) echo 'disabled'?> 
                         <?php if($formP->isChosen('bingo')) echo 'CHECKED'?>>
                     <label>Played all seven tiles in your hand?</label>    
                 </div>
@@ -60,13 +55,6 @@ require('score.php');
                     <input type='submit' value='Score' class='btn-primary btn small'>
                 </div>
             </form>
-        <?php endif; ?>
-        <?php if($formP->isSubmitted()):?>
-            <div class='score'>
-                <?php if($score != NULL): ?>
-                    <div class='alert alert-success'>Calculated Score = <?=sanitize($score) ?>
-                <?php endif; ?>
-            </div>
         <?php endif; ?>
     </div>
 </body>

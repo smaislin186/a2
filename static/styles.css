@@ -33,6 +33,6 @@ input[type='checkbox'], input[type='radio'] {
     float:left;
 }
 
-/*fieldset {
-    text-align: center;
-}*/
+.letter-group{
+    color:blue;
+}

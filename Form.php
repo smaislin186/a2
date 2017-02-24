@@ -43,7 +43,6 @@ class Form {
 
     }
 
-
     /**
 	* Determines if a single checkbox is checked
     * Example usage:
@@ -83,19 +82,9 @@ class Form {
 	* Returns True if *either* GET or POST have been submitted
 	*/
     public function isSubmitted() {
-        //return $_SERVER['REQUEST_METHOD'] == !empty($_GET) || !empty($_POST);
-        
         return $_SERVER['REQUEST_METHOD'] == 'POST' || !empty($_GET);
     }
     
-    /**
-	* Returns True if *only* GET has been submitted
-	*/
-    public function isSubmittedGet() {
-        return $_SERVER['REQUEST_METHOD'] != 'POST';
-        //return $_SERVER['REQUEST_METHOD'] == !empty($_GET) || empty($_POST);
-        //return $_SERVER['REQUEST_METHOD'] == 'POST' || !empty($_GET);
-    }
     /**
 	* Returns True if *only* POST has been submitted
 	*/
