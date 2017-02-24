@@ -1,10 +1,7 @@
 <?php 
 require('layout.php');
-require('definition.php');
+require('score.php');
  ?>
-<!doctype html>
-<html>
-<body>
     <div class="container-fluid">   
         <h2>Scrabble Word Finder & Calculator</h2>
         

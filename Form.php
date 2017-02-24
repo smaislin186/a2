@@ -89,7 +89,7 @@ class Form {
     }
     
     /**
-	* Returns True if GET has been submitted
+	* Returns True if *only* GET has been submitted
 	*/
     public function isSubmittedGet() {
         return $_SERVER['REQUEST_METHOD'] != 'POST';
@@ -97,7 +97,7 @@ class Form {
         //return $_SERVER['REQUEST_METHOD'] == 'POST' || !empty($_GET);
     }
     /**
-	* Returns True if POST has been submitted
+	* Returns True if *only* POST has been submitted
 	*/
     public function isSubmittedPost() {
         return $_SERVER['REQUEST_METHOD'] == 'POST';
